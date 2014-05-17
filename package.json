@@ -1,0 +1,14 @@
+{
+  "name": "googleplay-explorer",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/explorer.js",
+  "dependencies": {
+    "grunt": "~0.4.2",
+    "grunt-phantom": "0.2.1",
+    "grunt-contrib-coffee": "~0.10.1",
+    "grunt-contrib-connect": "~0.6.0",
+    "grunt-coffeeify": "0.1.3",
+    "browserify": "4.1.5"
+  }
+}

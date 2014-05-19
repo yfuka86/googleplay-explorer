@@ -20,9 +20,9 @@
           _this.funcs.push(function() {
             var key;
             if (firstChar !== 'あ') {
-              console.log(_this.results.push(_this.page.evaluate(function() {
+              _this.results.push(_this.page.evaluate(function() {
                 return document.getElementsByTagName('pre')[0].innerHTML;
-              })));
+              }));
             }
             key = encodeURI(firstChar);
             return _this.page.open("https://market.android.com/suggest/SuggRequest?json=1&c=0&query=" + key + "&hl=ja&gl=JP");
@@ -72,7 +72,7 @@
     };
 
     Explorer.prototype.output = function() {
-      var result, results;
+      var results;
       results = _.map(this.results, function(result) {
         return $.parseJSON(result);
       });
@@ -81,8 +81,8 @@
           return obj.s;
         });
       });
-      result = _.reject(results, function(result) {
-        return result = '';
+      results = _.reject(results, function(result) {
+        return result.length === 0;
       });
       return console.log(results);
     };

@@ -29,7 +29,7 @@ class Explorer
 
       @funcs.push () =>
         unless firstChar is 'あ'
-          console.log @results.push @page.evaluate () ->
+          @results.push @page.evaluate () ->
             document.getElementsByTagName('pre')[0].innerHTML
         key = encodeURI firstChar
         @page.open "https://market.android.com/suggest/SuggRequest?json=1&c=0&query=#{key}&hl=ja&gl=JP"
@@ -69,7 +69,7 @@ class Explorer
       _.map result, (obj) ->
         obj.s
     results = _.reject results, (result) ->
-      result is ''
+      result.length is 0
 
     console.log results
 

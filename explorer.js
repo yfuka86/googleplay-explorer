@@ -54,7 +54,6 @@
       this.page = require('webpage').create();
       recursive = (function(_this) {
         return function(i) {
-          var results;
           if (i == null) {
             i = 0;
           }
@@ -64,20 +63,25 @@
             };
             return _this.funcs[i]();
           } else {
-            results = _.map(_this.results, function(result) {
-              return $.parseJSON(result);
-            });
-            results = _.map(results, function(result) {
-              return _.map(result, function(obj) {
-                return obj.s;
-              });
-            });
-            console.log(results);
+            _this.output();
             return phantom.exit();
           }
         };
       })(this);
       return recursive();
+    };
+
+    Explorer.prototype.output = function() {
+      var results;
+      results = _.map(this.results, function(result) {
+        return $.parseJSON(result);
+      });
+      results = _.map(results, function(result) {
+        return _.map(result, function(obj) {
+          return obj.s;
+        });
+      });
+      return console.log(results);
     };
 
     return Explorer;

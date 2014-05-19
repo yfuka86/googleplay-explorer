@@ -72,7 +72,7 @@
     };
 
     Explorer.prototype.output = function() {
-      var results;
+      var result, results;
       results = _.map(this.results, function(result) {
         return $.parseJSON(result);
       });
@@ -80,6 +80,9 @@
         return _.map(result, function(obj) {
           return obj.s;
         });
+      });
+      result = _.reject(results, function(result) {
+        return result = '';
       });
       return console.log(results);
     };

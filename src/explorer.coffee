@@ -68,6 +68,8 @@ class Explorer
     results = _.map results, (result) ->
       _.map result, (obj) ->
         obj.s
+    results = _.reject results, (result) ->
+      result is ''
 
     console.log results
 

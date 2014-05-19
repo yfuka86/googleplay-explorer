@@ -41,9 +41,10 @@
       })(this));
       return this.funcs.push((function(_this) {
         return function() {
-          return console.log(_this.results.push(_this.page.evaluate(function() {
+          console.log(_this.results.push(_this.page.evaluate(function() {
             return document.getElementsByTagName('pre')[0].innerHTML;
           })));
+          return _this.page.open("https://market.android.com");
         };
       })(this));
     };
@@ -53,6 +54,7 @@
       this.page = require('webpage').create();
       recursive = (function(_this) {
         return function(i) {
+          var results;
           if (i == null) {
             i = 0;
           }
@@ -62,28 +64,20 @@
             };
             return _this.funcs[i]();
           } else {
-            return function() {
-              _this.output();
-              return phantom.exit();
-            };
+            results = _.map(_this.results, function(result) {
+              return $.parseJSON(result);
+            });
+            results = _.map(results, function(result) {
+              return _.map(result, function(obj) {
+                return obj.s;
+              });
+            });
+            console.log(results);
+            return phantom.exit();
           }
         };
       })(this);
       return recursive();
-    };
-
-    Explorer.prototype.output = function() {
-      var results;
-      console.log('a');
-      results = _.map(this.results(function(result) {
-        return $.parseJSON(result);
-      }));
-      results = _.map(results, function(result) {
-        return _.map(result, function(obj) {
-          return obj.s;
-        });
-      });
-      return console.log(result);
     };
 
     return Explorer;

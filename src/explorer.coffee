@@ -42,6 +42,8 @@ class Explorer
     @funcs.push () =>
       console.log @results.push @page.evaluate () ->
         document.getElementsByTagName('pre')[0].innerHTML
+      #データ出力部のために最後ホームページを読み込んでイベントを発火させる。
+      @page.open "https://market.android.com"
 
   execute: () ->
     @page = require('webpage').create()
@@ -51,20 +53,15 @@ class Explorer
         @page.onLoadFinished = ()-> recursive(i+1)
         @funcs[i]()
       else
-        () =>
-          @output()
-          phantom.exit()
+        results = _.map @results, (result) ->
+          $.parseJSON result
+        results = _.map results, (result) ->
+          _.map result, (obj) ->
+            obj.s
+        console.log results
+        phantom.exit()
 
     recursive()
-
-  output: () ->
-    console.log 'a'
-    results = _.map @results (result) ->
-      $.parseJSON result
-    results = _.map results, (result) ->
-      _.map result, (obj) ->
-        obj.s
-    console.log result
 
 explorer = new Explorer
 explorer.init()

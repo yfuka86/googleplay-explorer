@@ -1,9 +1,14 @@
 module.exports = (grunt) ->
+  grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-connect'
   grunt.loadNpmTasks 'grunt-coffeeify'
   grunt.initConfig
+    coffee:
+      compile:
+        files:
+          './explorer.js': ['src/explorer.coffee']
+
     coffeeify:
-      options:
       files:
         src:['src/**/*.coffee']
         dest:'dist/explorer.js'
@@ -11,7 +16,7 @@ module.exports = (grunt) ->
     connect:
       app:
         options:
-          port: 3098
+          port: 3000
           base: '.'
 
-  grunt.registerTask "build", ["coffeeify"]
+  grunt.registerTask "build", ["coffee"]

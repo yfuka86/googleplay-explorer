@@ -6,3 +6,5 @@ npm install
 phantomjs explorer.js  
   
 でコンソール出力。csvとかはまた考える。
+
+つーかコード汚え
